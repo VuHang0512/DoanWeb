@@ -67,8 +67,239 @@ Cập nhật thông tin
 
 <h1>Một số code minh họa</h1>
 
-## Model 
-Cart
+## Order Model 
+```php
+// Model đơn đặt hàng
+class Orders extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'orders_id',
+        'orders_users_id',
+        'orders_product',
+        'orders_quantity',
+        'orders_price',
+        'orders_censor',
+        'orders_phonenumber',
+        'orders_address',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'orders_users_id');
+    }
+
+    public function ship()
+    {
+        return $this->hasMany(Shipper::class);
+    }
+
+    // public function ac_order(){
+    //     return $this->belongsTo(AC_order::class , 'orders_id');
+    // }
+}
+```
+
+## Product Model
+
+``` php
+// Model sản phẩm
+class Product extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'product_name',
+        'product_price',
+        'product_cat_id',
+        'product_subcat_id',
+        'product_attribute_id',
+        'product_status',
+        'product_quantity',
+        'product_img'
+    ];
+
+
+    // các phần từ con kết nối đến phần tử cha là category , subcategory , default_attribute
+    public function category(){
+        return $this->belongsTo(Category::class, 'product_cat_id');
+    }
+
+    public function subcategory(){
+        return $this->belongsTo(Subcategory::class, 'product_subcat_id');
+    }
+
+    public function default_attribute(){
+        return $this->belongsTo(DefaultAttribute::class, 'product_attribute_id');
+    }
+
+    // phần tử cha kết nối vs AC_order
+    public function AC_order(){
+        return $this->hasMany(AC_order::class);
+    }
+
+    public function cartcus(){
+        return $this->hasMany(CartCus::class);
+    }
+
+}
+```
+
+## Shipper Model
+
+``` php
+// Model Shipper
+class Shipper extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'ship_orders_id',
+        'ship_users',
+        'ship_product',
+        'ship_quantity',
+        'ship_price',
+        'ship_phonenumber',
+        'ship_address',
+        'ship_thank'
+    ];
+
+    public function order()
+    {
+        return $this->belongsTo(Orders::class, 'ship_orders_id');
+    }
+}
+```
+
+## User Model
+
+``` php
+// Model User
+class User extends Authenticatable
+{
+    /** @use HasFactory<\Database\Factories\UserFactory> */
+    use HasFactory, Notifiable;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'role',
+        'img_user',
+        'password',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
+    public function orders(){
+        return $this->hasMany(Orders::class);
+    }
+
+    public function cartcus(){
+        return $this->hasMany(CartCus::class);
+    }
+}
+```
+
+## Category Model
+
+``` php
+// Model danh mục chính
+class Category extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'category_name'
+    ];
+
+    // phần tử cha kết nối đến con là subcategory
+    public function subcategory(){
+        return $this->hasMany(Subcategory::class);
+    }
+
+    // phần tử cha kết nối đến con là product
+    public function product(){
+        return $this->hasMany(Product::class);
+    }
+}
+```
+
+## Model Subcategory
+
+``` php
+// Model danh mục phụ
+class Subcategory extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'subcategory_name',
+        'category_id'
+    ];
+
+
+    // phần tử con kết nối đến cha là category
+    public function category(){
+        return $this->belongsTo(Category::class , 'category_id');
+    }
+
+    // phần tử cha kết nối đến con là product
+    public function product(){
+        return $this->hasMany(Product::class);
+    }
+}
+```
+
+## Model CartCus
+
+``` php
+// Model Giỏ hàng customer
+class CartCus extends Model
+{
+    use HasFactory;
+    protected $fillable = [
+        'product_id',
+        'user_id',
+        'cart_quantity',
+        'cart_price',
+    ];
+
+    public function product(){
+        return $this->belongsTo(Product::class,'product_id');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
+}
+```
 
 ## Controller
 Phương thức CRUD
