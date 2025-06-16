@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,5 +36,10 @@ class AppServiceProvider extends ServiceProvider
         //     // Mặc định nếu chưa đăng nhập
         //     Paginator::useTailwind();
         // }
+
+        // Sửa cho phần laravel cloud
+        if (env('APP_ENV') === 'production') {
+            URL::forceScheme('https');
+        }
     }
 }
