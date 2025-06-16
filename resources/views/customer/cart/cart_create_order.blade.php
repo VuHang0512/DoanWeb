@@ -20,7 +20,7 @@
                         <img src="{{ asset('admin_asset/img/photos/blocks.png') }}" alt="Logo"
                             class="w-16 h-16 object-cover" id="Logo">
                         <p class="text-2xl font-semibold text-gray-700">MyKingToys</p>
-                        <p class="text-lg text-gray-600"><i class="fa-solid fa-user"></i> : {{Auth::user()->name}}</p>
+                        <p class="text-lg text-gray-600"><i class="fa-solid fa-user"></i> : {{ Auth::user()->name }}</p>
                     </div>
                 </div>
 

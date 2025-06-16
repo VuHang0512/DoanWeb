@@ -23,3 +23,4 @@ class AC_order extends Model
     //     return $this->hasMany(Orders::class);
     // }
 }
+    
