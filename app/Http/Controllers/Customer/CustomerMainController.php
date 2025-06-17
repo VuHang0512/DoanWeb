@@ -35,7 +35,7 @@ class CustomerMainController extends Controller
         $cart_pro_count = CartCus::where('user_id', '=', $id)->count();
         $cart_pro = CartCus::where('user_id', '=', $id)->with('product')->get(); // Include product relationship
         return response()->json(['cart_pro_count' => $cart_pro_count, 'cart_pro' => $cart_pro]);
-        return view('customer.layouts.layout' , compact('cart_pro_count' , 'cart_pro'));
+        // return view('customer.layouts.layout' , compact('cart_pro_count' , 'cart_pro'));
     }
 
 

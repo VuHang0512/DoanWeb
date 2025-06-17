@@ -954,10 +954,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            let userId = {{ Auth::user()->id ?? 'null' }};
+            let userId = {{ Auth::check() ? Auth::id() : 'null' }};
+
             if (userId) {
                 $.ajax({
-                    url: "{{ route('customer.count.procart', '') }}/" + userId,
+                    url: "{{ route('customer.count.procart', ['id' => '__id__']) }}".replace('__id__', userId),
                     method: "GET",
                     success: function(response) {
                         // Cập nhật số lượng sản phẩm
@@ -969,21 +970,21 @@
                         cartItems.forEach(function(item) {
                             cartListHtml +=
                                 `
-        <li class="flex items-center justify-between p-2 border-b border-gray-200 hover:bg-gray-50 transition">
-            <!-- Hình ảnh sản phẩm -->
-            <div class="flex items-center space-x-4">
-                <img src="{{ asset('admin_asset/img/photos/') }}/${item.product.product_img}" alt="${item.product.product_name}"
-                     class="w-12 h-12 rounded-md object-cover">
-                <!-- Thông tin sản phẩm -->
-                <div>
-                    <h4 class="text-sm font-semibold text-gray-700">${item.product.product_name}</h4>
-                    <p class="text-xs text-gray-500">Số lượng: ${item.cart_quantity}</p>
+            <li class="flex items-center justify-between p-2 border-b border-gray-200 hover:bg-gray-50 transition">
+                <!-- Hình ảnh sản phẩm -->
+                <div class="flex items-center space-x-4">
+                    <img src="{{ asset('admin_asset/img/photos/') }}/${item.product.product_img}" alt="${item.product.product_name}"
+                        class="w-12 h-12 rounded-md object-cover">
+                    <!-- Thông tin sản phẩm -->
+                    <div>
+                        <h4 class="text-sm font-semibold text-gray-700">${item.product.product_name}</h4>
+                        <p class="text-xs text-gray-500">Số lượng: ${item.cart_quantity}</p>
+                    </div>
                 </div>
-            </div>
-            <!-- Giá sản phẩm -->
-            <span class="text-sm font-bold text-green-600">${item.cart_price.toLocaleString()}₫</span>
-        </li>
-                        `;
+                <!-- Giá sản phẩm -->
+                <span class="text-sm font-bold text-green-600">${item.cart_price.toLocaleString()}₫</span>
+            </li>
+                            `;
                         });
 
                         $('#cart-items ul').html(cartListHtml);
@@ -995,6 +996,7 @@
             }
         });
     </script>
+
 
 
 

@@ -39,21 +39,22 @@ class AdminMainController extends Controller
 
 
 
-            $imagePath = $seller_img->img_user ?? 'admin_asset/img/photos/blocks.png';
+             $imagePath = $seller_img->img_user ?? 'admin_asset/img/photos/blocks.png';
 
-            if ($request->hasFile('profile_img')) {
-                $file = $request->file('profile_img');
-                $fileName = time() . '_' . $file->getClientOriginalName();
-                $destinationPath = public_path('admin_asset/img/photos');
-                $file->move($destinationPath, $fileName);
-                $imagePath = $fileName;
-            }
+             // Kiểm tra nếu có file ảnh mới được tải lên
+             if ($request->hasFile('profile_img')) {
+                 $file = $request->file('profile_img');
+                 $fileName = time() . '_' . $file->getClientOriginalName();
+                 $destinationPath = public_path('admin_asset/img/photos');
+                 $file->move($destinationPath, $fileName);
+                 $imagePath = $fileName;
+             }
 
-            $seller_img->update([
-                'img_user' => $imagePath
-            ]);
+             $seller_img->update([
+                 'img_user' => $imagePath
+             ]);
 
-            return redirect()->route('admin.settings')->with('success', "Bạn $seller_img->name đã được cập nhật hình ảnh thành công.");
+             return redirect()->route('admin.settings')->with('success', "Bạn $seller_img->name đã được cập nhật hình ảnh thành công.");
 
     }
 }

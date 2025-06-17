@@ -129,7 +129,7 @@ class SellerProductController extends Controller
 
             return redirect()->route('vendor.product.manage_review')->with('success', 'Sản phẩm đã được thêm thành công và cập nhật số lượng trong kho.');
         } catch (Exception $e) {
-            return response()->json(['error' => false, 'message' => 'Lỗi khi thêm sản phẩm vào giỏ hàng.']);
+            return response()->json(['error' => true, 'message' => 'Lỗi khi thêm sản phẩm vào giỏ hàng.']);
         }
     }
 
