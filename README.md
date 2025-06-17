@@ -1118,7 +1118,7 @@ Middleware(dấu ->) bảo vệ chuyển hướng. Ví dụ: routes/web.php
 <https://www.youtube.com/@fanmaster939/>
 
 ## Public website
-<https://railway.com/project/ba8735a8-9d21-4f49-9d92-0817deaf7b5c/service/4ab2f23b-22e6-4c73-935d-3a87a3eb8561?environmentId=a83ed10f-94d5-4c43-ba39-291ac46b7e32/>
+https://quanlybanhang-production.up.railway.app/
 
 <h1> 📷 Một số hình ảnh chức năng chính</h1>
 
