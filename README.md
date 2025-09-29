@@ -1,10 +1,4 @@
-<h1 align="center">Project: Website bán đồ chơi</h1>
 
-## 👤 Thông Tin Cá Nhân  
-- **Họ tên**: Hoàng Minh Quân 
-- **Mã sinh viên**: 23010315
-- **Lớp**: CNTT_4
-- **Môn học**: Xây dựng web nâng cao (TH3)
 
 ## 📈 Mục đích dự án
 - Xây dựng một website bán đồ chơi trực tuyến nhằm giúp khách hàng dễ dàng xem thông tin chi tiết về các sản phẩm đồ chơi, đặt hàng và thanh toán một cách nhanh chóng, tiện lợi.
